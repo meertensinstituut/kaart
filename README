@@ -1,0 +1,17 @@
+Kaart, version 3.0.2
+Copyright (C) 2006-2023 Meertens Instituut / KNAW / HuC
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+
+Version history
+---------------
+
+3.0.2 2023-09-17 Composer-installable, split into core and REST/XML-RPC, PHP 8.1 compatible
+
+3.0.1 2013-03-18 Added option in jQuery plugin to have caching handled by the server (to be handled by a proxy
+                 between the client and the actual REST service).
+3.0.0 2013-01-21 Initial 3.0 version

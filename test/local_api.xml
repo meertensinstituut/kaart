@@ -1,0 +1,8 @@
+<phpunit bootstrap="testconfig_local.inc.php">
+    <testsuites>
+      <testsuite name="local_services">
+        <file>KaartDutchLanguageAreaTest.php</file>
+        <file>KaartChoroplethTest.php</file>
+      </testsuite>
+    </testsuites>
+</phpunit>
