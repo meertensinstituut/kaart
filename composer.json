@@ -1,4 +1,5 @@
 {
+  "name": "meertensinstituut/kaart",
   "autoload": {
     "psr-4": {
       "Meertens\\Kaart\\": ["src/", "test/"]
