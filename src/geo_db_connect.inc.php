@@ -30,16 +30,16 @@
 /**
  * Name of the database with geographical data
  */
-define('KAART_GEO_DB', 'geo');
+define('KAART_GEO_DB', $_ENV['KAART_GEO_DB']);
 /**
  * Name of the database with GIS data for historical municipalities (Boonstra)
  */
-define('KAART_NLGIS_DB', 'geo_nlgis');
+define('KAART_NLGIS_DB', $_ENV['KAART_NLGIS_DB']);
 
-define('KAART_GEO_DB_HOST', 'host.docker.internal');
+define('KAART_GEO_DB_HOST', $_ENV['KAART_GEO_DB_HOST']);
 /**
  * Make sure that this is a user who has SELECT privileges on KAART_GEO_DB and KAART_NLGIS_DB
  */
-define('KAART_GEO_DB_USER', 'browser');
-define('KAART_GEO_DB_PASSWORD', 'browsie');
+define('KAART_GEO_DB_USER', $_ENV['KAART_GEO_DB_USER']);
+define('KAART_GEO_DB_PASSWORD', $_ENV['KAART_GEO_DB_PASSWORD']);
 

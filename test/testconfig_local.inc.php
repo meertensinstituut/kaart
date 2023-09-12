@@ -6,6 +6,5 @@ if (file_exists('../vendor/autoload.php')) {
     require('../../../autoload.php');
 }
 define('KAART_TESTDIRECTORY', realpath('./tmp/'));
-#define('KAART_SERVER_HOSTNAME', 'localhost');
-#define('KAART_SERVER_PATH', '/');
-
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();

@@ -381,9 +381,9 @@ class Kaart
      *
      * @param $dbname
      *
-     * @return bool FALSE (connection failed) or TRUE (connection successful)
+     * @return \mysqli | bool FALSE (connection failed) or mysqli object (connection successful)
      */
-    public static function createDBConnection($dbname)
+    public static function createDBConnection($dbname): bool|\mysqli
     {
         $db_connection = mysqli_connect(KAART_GEO_DB_HOST, KAART_GEO_DB_USER, KAART_GEO_DB_PASSWORD);
         if (!$db_connection)
