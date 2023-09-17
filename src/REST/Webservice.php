@@ -4,7 +4,7 @@ namespace Meertens\Kaart\REST;
 
 use Meertens\Kaart\Kaart;
 
-define('REST_DEFAULT_ALLOWED_CLIENT', $_SERVER['SERVER_ADDR']);
+define('REST_DEFAULT_ALLOWED_CLIENT', $_SERVER['SERVER_NAME']);
 
 class Webservice
 {
