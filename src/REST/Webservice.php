@@ -5,11 +5,12 @@ namespace Meertens\Kaart\REST;
 use Meertens\Kaart\Kaart;
 
 define('REST_DEFAULT_ALLOWED_CLIENT', $_SERVER['SERVER_ADDR']);
+define('REST_ALLOWED_CLIENTS', json_decode($_ENV['REST_ALLOWED_CLIENTS']));
 
 class Webservice
 {
     // add to this array as needed
-    private static $_allowed_rest_clients = array(REST_DEFAULT_ALLOWED_CLIENT, '127.0.0.1');
+    private static $_allowed_rest_clients = array(REST_DEFAULT_ALLOWED_CLIENT) + REST_ALLOWED_CLIENTS;
     private static $_allowed_choropleth_types
         = array(
             'gemeentes', 'municipalities', 'corop', 'provincies', 'provinces', 'municipalities_nl_flanders',
