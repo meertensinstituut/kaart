@@ -55,8 +55,11 @@ ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . KAART_COORDSD
 /**
  * Include directory for customized path and ini files, specific to particular projects
  */
-define('KAART_CUSTOM_INCLUDE_PATH', KAART_COORDSDIR . DIRECTORY_SEPARATOR . 'custom');
-ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . KAART_CUSTOM_INCLUDE_PATH);
+if (isset($_ENV['KAART_CUSTOM_INCLUDE_PATHS'])) {
+    foreach($_ENV['KAART_CUSTOM_INCLUDE_PATHS'] as $path) {
+        ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . $path);
+    }
+}
 
 /**
  * URL where the KML version of the map can find its default icons
