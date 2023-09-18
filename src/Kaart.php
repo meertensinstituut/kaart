@@ -24,7 +24,7 @@ use Meertens\Kaart\Output\DutchLanguageArea;
 /**
  * Central configuration file
  */
-require('Kaart.config.inc.php');
+require_once('Kaart.config.inc.php');
 
 /**
  * This class can be used to create two kinds of maps:

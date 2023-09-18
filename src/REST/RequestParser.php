@@ -1,7 +1,7 @@
 <?php
 
 namespace Meertens\Kaart\REST;
-require(dirname(__DIR__) . '/Kaart.config.inc.php');
+require_once(dirname(__DIR__) . '/Kaart.config.inc.php');
 
 class RequestParser
 {
