@@ -22,11 +22,6 @@
  * @link       http://pear.php.net/package/XML_RPC
  */
 
-
-/**
- * Pull in the XML_RPC class
- */
-require_once 'XML_RPC/XML/RPC.php';
 /**
  * signature for system.listMethods: return = array,
  * parameters = a string or nothing
