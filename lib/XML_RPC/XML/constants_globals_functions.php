@@ -528,3 +528,197 @@ function XML_RPC_cd($parser_resource, $data)
         $XML_RPC_xh[$parser]['ac'] .= $data;
     }
 }
+
+/**
+ * signature for system.listMethods: return = array,
+ * parameters = a string or nothing
+ * @global array $GLOBALS['XML_RPC_Server_listMethods_sig']
+ */
+$GLOBALS['XML_RPC_Server_listMethods_sig'] = array(
+    array($GLOBALS['XML_RPC_Array'],
+        $GLOBALS['XML_RPC_String']
+    ),
+    array($GLOBALS['XML_RPC_Array'])
+);
+
+/**
+ * docstring for system.listMethods
+ * @global string $GLOBALS['XML_RPC_Server_listMethods_doc']
+ */
+$GLOBALS['XML_RPC_Server_listMethods_doc'] = 'This method lists all the'
+    . ' methods that the XML-RPC server knows how to dispatch';
+
+/**
+ * signature for system.methodSignature: return = array,
+ * parameters = string
+ * @global array $GLOBALS['XML_RPC_Server_methodSignature_sig']
+ */
+$GLOBALS['XML_RPC_Server_methodSignature_sig'] = array(
+    array($GLOBALS['XML_RPC_Array'],
+        $GLOBALS['XML_RPC_String']
+    )
+);
+
+/**
+ * docstring for system.methodSignature
+ * @global string $GLOBALS['XML_RPC_Server_methodSignature_doc']
+ */
+$GLOBALS['XML_RPC_Server_methodSignature_doc'] = 'Returns an array of known'
+    . ' signatures (an array of arrays) for the method name passed. If'
+    . ' no signatures are known, returns a none-array (test for type !='
+    . ' array to detect missing signature)';
+
+/**
+ * signature for system.methodHelp: return = string,
+ * parameters = string
+ * @global array $GLOBALS['XML_RPC_Server_methodHelp_sig']
+ */
+$GLOBALS['XML_RPC_Server_methodHelp_sig'] = array(
+    array($GLOBALS['XML_RPC_String'],
+        $GLOBALS['XML_RPC_String']
+    )
+);
+
+/**
+ * docstring for methodHelp
+ * @global string $GLOBALS['XML_RPC_Server_methodHelp_doc']
+ */
+$GLOBALS['XML_RPC_Server_methodHelp_doc'] = 'Returns help text if defined'
+    . ' for the method passed, otherwise returns an empty string';
+
+/**
+ * dispatch map for the automatically declared XML-RPC methods.
+ * @global array $GLOBALS['XML_RPC_Server_dmap']
+ */
+$GLOBALS['XML_RPC_Server_dmap'] = array(
+    'system.listMethods' => array(
+        'function'  => 'XML_RPC_Server_listMethods',
+        'signature' => $GLOBALS['XML_RPC_Server_listMethods_sig'],
+        'docstring' => $GLOBALS['XML_RPC_Server_listMethods_doc']
+    ),
+    'system.methodHelp' => array(
+        'function'  => 'XML_RPC_Server_methodHelp',
+        'signature' => $GLOBALS['XML_RPC_Server_methodHelp_sig'],
+        'docstring' => $GLOBALS['XML_RPC_Server_methodHelp_doc']
+    ),
+    'system.methodSignature' => array(
+        'function'  => 'XML_RPC_Server_methodSignature',
+        'signature' => $GLOBALS['XML_RPC_Server_methodSignature_sig'],
+        'docstring' => $GLOBALS['XML_RPC_Server_methodSignature_doc']
+    )
+);
+
+/**
+ * @global string $GLOBALS['XML_RPC_Server_debuginfo']
+ */
+$GLOBALS['XML_RPC_Server_debuginfo'] = '';
+
+/**
+ * Lists all the methods that the XML-RPC server knows how to dispatch
+ *
+ * @return object  a new XML_RPC_Response object
+ */
+function XML_RPC_Server_listMethods($server, $m)
+{
+    global $XML_RPC_err, $XML_RPC_str, $XML_RPC_Server_dmap;
+
+    $v = new XML_RPC_Value();
+    $outAr = array();
+    foreach ($server->dmap as $key => $val) {
+        $outAr[] = new XML_RPC_Value($key, 'string');
+    }
+    foreach ($XML_RPC_Server_dmap as $key => $val) {
+        $outAr[] = new XML_RPC_Value($key, 'string');
+    }
+    $v->addArray($outAr);
+    return new XML_RPC_Response($v);
+}
+
+/**
+ * Returns an array of known signatures (an array of arrays)
+ * for the given method
+ *
+ * If no signatures are known, returns a none-array
+ * (test for type != array to detect missing signature)
+ *
+ * @return object  a new XML_RPC_Response object
+ */
+function XML_RPC_Server_methodSignature($server, $m)
+{
+    global $XML_RPC_err, $XML_RPC_str, $XML_RPC_Server_dmap;
+
+    $methName = $m->getParam(0);
+    $methName = $methName->scalarval();
+    if (strpos($methName, 'system.') === 0) {
+        $dmap = $XML_RPC_Server_dmap;
+        $sysCall = 1;
+    } else {
+        $dmap = $server->dmap;
+        $sysCall = 0;
+    }
+    //  print "<!-- ${methName} -->\n";
+    if (isset($dmap[$methName])) {
+        if ($dmap[$methName]['signature']) {
+            $sigs = array();
+            $thesigs = $dmap[$methName]['signature'];
+            for ($i = 0; $i < sizeof($thesigs); $i++) {
+                $cursig = array();
+                $inSig = $thesigs[$i];
+                for ($j = 0; $j < sizeof($inSig); $j++) {
+                    $cursig[] = new XML_RPC_Value($inSig[$j], 'string');
+                }
+                $sigs[] = new XML_RPC_Value($cursig, 'array');
+            }
+            $r = new XML_RPC_Response(new XML_RPC_Value($sigs, 'array'));
+        } else {
+            $r = new XML_RPC_Response(new XML_RPC_Value('undef', 'string'));
+        }
+    } else {
+        $r = new XML_RPC_Response(0, $XML_RPC_err['introspect_unknown'],
+            $XML_RPC_str['introspect_unknown']);
+    }
+    return $r;
+}
+
+/**
+ * Returns help text if defined for the method passed, otherwise returns
+ * an empty string
+ *
+ * @return object  a new XML_RPC_Response object
+ */
+function XML_RPC_Server_methodHelp($server, $m)
+{
+    global $XML_RPC_err, $XML_RPC_str, $XML_RPC_Server_dmap;
+
+    $methName = $m->getParam(0);
+    $methName = $methName->scalarval();
+    if (strpos($methName, 'system.') === 0) {
+        $dmap = $XML_RPC_Server_dmap;
+        $sysCall = 1;
+    } else {
+        $dmap = $server->dmap;
+        $sysCall = 0;
+    }
+    if (isset($dmap[$methName])) {
+        if (isset($dmap[$methName]['docstring'])) {
+            $r = new XML_RPC_Response(new XML_RPC_Value($dmap[$methName]['docstring']), 0,
+                'string');
+        } else {
+            $r = new XML_RPC_Response(new XML_RPC_Value('', 'string'));
+        }
+    } else {
+        $r = new XML_RPC_Response(0, $XML_RPC_err['introspect_unknown'],
+            $XML_RPC_str['introspect_unknown']);
+    }
+    return $r;
+}
+
+/**
+ * @return void
+ */
+function XML_RPC_Server_debugmsg($m)
+{
+    global $XML_RPC_Server_debuginfo;
+    $XML_RPC_Server_debuginfo = $XML_RPC_Server_debuginfo . $m . "\n";
+}
+
