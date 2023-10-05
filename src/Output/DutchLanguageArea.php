@@ -500,7 +500,7 @@ class DutchLanguageArea extends KaartAbstract
     $this->db_connection = Kaart::createDBConnection(KAART_GEO_DB);
     mysqli_query($this->db_connection,'SET NAMES utf8');
     if (is_null($complete)) {
-      $query = 'SELECT CONVERT(kloeke_code1 USING utf8), CONVERT(plaats USING utf8) FROM geo.kloeke';
+      $query = 'SELECT CONVERT(kloeke_code1 USING utf8), CONVERT(plaats USING utf8) FROM kloeke';
       $result = mysqli_query($this->db_connection, $query);
       if ($result) {
         $retval = array();
@@ -509,7 +509,7 @@ class DutchLanguageArea extends KaartAbstract
         }
       }
     } else {
-      $query = 'SELECT CONVERT(kloeke_code1 USING utf8) AS kloekecode, CONVERT(plaats USING utf8) AS placename, RD_x AS rd_x, RD_y AS rd_y, lat, lng FROM geo.kloeke';
+      $query = 'SELECT CONVERT(kloeke_code1 USING utf8) AS kloekecode, CONVERT(plaats USING utf8) AS placename, RD_x AS rd_x, RD_y AS rd_y, lat, lng FROM kloeke';
       $result = mysqli_query( $this->db_connection, $query);
       if ($result) {
         $retval = array();
