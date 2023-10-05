@@ -7,6 +7,14 @@ use Meertens\Kaart\Kaart;
 define('REST_DEFAULT_ALLOWED_CLIENT', $_SERVER['SERVER_ADDR']);
 define('REST_ALLOWED_CLIENTS', json_decode($_ENV['REST_ALLOWED_CLIENTS']));
 
+if (isset($_SERVER['HTTP_X_ORIGINAL_FORWARDED_FOR'])) {
+    define('CURRENT_CLIENT', $_SERVER['HTTP_X_ORIGINAL_FORWARDED_FOR']);
+} elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    define('CURRENT_CLIENT', $_SERVER['HTTP_X_FORWARDED_FOR']);
+} else {
+    define('CURRENT_CLIENT', $_SERVER['REMOTE_ADDR']);
+}
+
 class Webservice
 {
     // add to this array as needed
@@ -118,7 +126,7 @@ class Webservice
 
             if (array_key_exists('link', $set)) {
 
-                if (! in_array($_SERVER['REMOTE_ADDR'], self::$_allowed_rest_clients)) {
+                if (! in_array(CURRENT_CLIENT, self::$_allowed_rest_clients)) {
                     $link = 'javascript:alert("' . self::$_linking_denied_message . '");';
                     $target = NULL;
                 } else {
@@ -133,7 +141,7 @@ class Webservice
             }
 
             if (array_key_exists('onclick', $set)) {
-                if (! in_array($_SERVER['REMOTE_ADDR'], self::$_allowed_rest_clients)) {
+                if (! in_array(CURRENT_CLIENT, self::$_allowed_rest_clients)) {
                     $onclick = 'javascript:alert("' . self::$_javascript_denied_message . '");';
                 } else {
                     $onclick = trim($set['onclick']);
@@ -142,7 +150,7 @@ class Webservice
             }
 
             if (array_key_exists('onmouseover', $set)) {
-                if (! in_array($_SERVER['REMOTE_ADDR'], self::$_allowed_rest_clients)) {
+                if (! in_array(CURRENT_CLIENT, self::$_allowed_rest_clients)) {
                     $onmouseover = 'javascript:alert("' . self::$_javascript_denied_message . '");';
                 } else {
                     $onmouseover = trim($set['onmouseover']);
@@ -151,7 +159,7 @@ class Webservice
             }
 
             if (array_key_exists('onmouseout', $set)) {
-                if (! in_array($_SERVER['REMOTE_ADDR'], self::$_allowed_rest_clients)) {
+                if (! in_array(CURRENT_CLIENT, self::$_allowed_rest_clients)) {
                     $onmouseout = 'javascript:alert("' . self::$_javascript_denied_message . '");';
                 } else {
                     $onmouseout = trim($set['onmouseout']);
@@ -180,7 +188,7 @@ class Webservice
             $kaart->addData($parameters['data']);
         }
         if (isset($parameters['links'])) {
-            if (! in_array($_SERVER['REMOTE_ADDR'], self::$_allowed_rest_clients)) {
+            if (! in_array(CURRENT_CLIENT, self::$_allowed_rest_clients)) {
                 $redacted_links = array();
                 foreach($parameters['links'] as $code => $link) {
                     $redacted_links[$code] = 'javascript:alert("' . self::$_linking_denied_message . '");';
@@ -264,7 +272,7 @@ class Webservice
         }
 
         if (array_key_exists('link', $parameters)) {
-            if (! in_array($_SERVER['REMOTE_ADDR'], self::$_allowed_rest_clients)) {
+            if (! in_array(CURRENT_CLIENT, self::$_allowed_rest_clients)) {
                 $parameters['link'] = 'javascript:alert("' . self::$_linking_denied_message . '");';
             }
             if (!array_key_exists('linkhighlightedonly', $parameters)) {
@@ -302,4 +310,3 @@ class Webservice
         }
     }
 }
-
