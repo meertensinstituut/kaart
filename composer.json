@@ -8,8 +8,7 @@
       "Image_": "lib/Image_Color",
       "XML_SVG": "lib/XML_SVG"
     },
-    "files": ["lib/XML_RPC/XML/constants_globals_functions.php", "lib/XML_RPC/XML/system_describeMethods.php"],
-    "classmap": ["lib/XML_RPC/XML", "lib/XML_RPC/XML/RPC", "lib/REST.php"]
+    "classmap": ["lib/REST.php"]
   },
   "require": {
     "php": ">=8.1",
