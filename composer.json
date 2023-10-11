@@ -1,5 +1,7 @@
 {
   "name": "meertensinstituut/kaart",
+  "description": "Map drawing for Meertens Instituut applications",
+  "license": "GPL-2.0-or-later",
   "autoload": {
     "psr-4": {
       "Meertens\\Kaart\\": ["src/", "test/"]
