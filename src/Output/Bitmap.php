@@ -361,10 +361,10 @@ class Bitmap extends Image
       $x2 = $x + $half;
       $y2 = $y + $quarter; // aanklikbaar gedeelte onzichtbaar groter
       if ($fill !== FALSE) {
-        imageline($this->gd_image, $x1, $y, $x2, $y, $fill);
+        imageline($this->gd_image, (int) $x1,(int) $y, (int) $x2, (int) $y, $fill);
       } else {
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
-        imageline($this->gd_image, $x1, $y, $x2, $y, $this->_colors['grey']);
+        imageline($this->gd_image, (int) $x1, (int) $y, (int) $x2, (int) $y, $this->_colors['grey']);
       }
       imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
@@ -380,17 +380,17 @@ class Bitmap extends Image
       $x2 = $x + $quarter; // aanklikbaar gedeelte onzichtbaar groter
       $y2 = $y + $half;
       if ($fill !== FALSE) {
-        imageline($this->gd_image, $x, $y1, $x, $y2, $fill);
+        imageline($this->gd_image, (int) $x, (int) $y1, (int) $x, (int) $y2, $fill);
       } else {
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
-        imageline($this->gd_image, $x, $y1, $x, $y2, $this->_colors['grey']);
+        imageline($this->gd_image, (int) $x, (int) $y1, (int) $x, (int) $y2, $this->_colors['grey']);
       }
       if ($area_element) {
         $this->_create_area_element(
           'rect', array($x1, $y1, $x2, $y2), "$plaatsnaam ($kloeke_nr)", '', $kloeke_nr, $link_array
         );
       }
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       break;
     case 'slash_left':
       imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth * 4));
@@ -408,10 +408,10 @@ class Bitmap extends Image
       $x6 = $x - $quarter;
       $y6 = $y - $half;
       if ($fill !== FALSE) {
-        imageline($this->gd_image, $x1, $y1, $x4, $y4, $fill);
+        imageline($this->gd_image, (int) $x1, (int) $y1, (int) $x4, (int) $y4, $fill);
       } else {
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
-        imageline($this->gd_image, $x1, $y1, $x4, $y4, $this->_colors['grey']);
+        imageline($this->gd_image, (int) $x1, (int) $y1, (int) $x4, (int) $y4, $this->_colors['grey']);
       }
       imagesetthickness($this->gd_image,intval($this->_bitmap_linewidth));
       if ($area_element) {
@@ -437,10 +437,10 @@ class Bitmap extends Image
       $x6 = $x - $quarter;
       $y6 = $y + $half;
       if ($fill !== FALSE) {
-        imageline($this->gd_image, $x1, $y1, $x4, $y4, $fill);
+        imageline($this->gd_image, (int) $x1, (int) $y1, (int) $x4, (int) $y4, $fill);
       } else {
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
-        imageline($this->gd_image, $x1, $y1, $x4, $y4, $this->_colors['grey']);
+        imageline($this->gd_image, (int) $x1, (int) $y1, (int) $x4, (int) $y4, $this->_colors['grey']);
       }
       imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
@@ -462,12 +462,12 @@ class Bitmap extends Image
       $x4 = $x;
       $y4 = $y - $half;
       if ($fill !== FALSE) {
-        imageline($this->gd_image, $x, $y4, $x, $y2, $fill);
-        imageline($this->gd_image, $x1, $y, $x3, $y, $fill);
+        imageline($this->gd_image, (int) $x, (int) $y4, (int) $x, (int) $y2, $fill);
+        imageline($this->gd_image, (int) $x1, (int) $y, (int) $x3, (int) $y, $fill);
       } else {
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
-        imageline($this->gd_image, $x, $y4, $x, $y2, $this->_colors['grey']);
-        imageline($this->gd_image, $x1, $y, $x3, $y, $this->_colors['grey']);
+        imageline($this->gd_image, (int) $x, (int) $y4, (int) $x, (int) $y2, $this->_colors['grey']);
+        imageline($this->gd_image, (int) $x1, (int) $y, (int) $x3, (int) $y, $this->_colors['grey']);
       }
       imagesetthickness($this->gd_image, (int) $this->_bitmap_linewidth);
       if ($area_element) {
@@ -674,7 +674,7 @@ class Bitmap extends Image
     while (count($coordinates) > 0) {
       $x2 = array_shift($coordinates);
       $y2 = array_shift($coordinates);
-      imageline($gd_image, $x, $y, $x2, $y2, $color);
+      imageline($gd_image, (int) $x, (int) $y, (int) $x2, (int) $y2, $color);
       $x = $x2;
       $y = $y2;
     }
