@@ -323,10 +323,10 @@ class Bitmap extends Image
       $x2 = $x + $half;
       $y2 = $y + $quarter;
       if ($fill !== FALSE) {
-        imagefilledrectangle($this->gd_image, $x1, $y1, $x2, $y2, $fill);
+        imagefilledrectangle($this->gd_image, (int) $x1, (int) $y1, (int) $x2, (int) $y2, $fill);
       }
       if ($stroke !== FALSE) {
-        imagerectangle($this->gd_image, $x1, $y1, $x2, $y2, $stroke);
+        imagerectangle($this->gd_image, (int) $x1, (int) $y1, (int) $x2, (int) $y2, $stroke);
       }
       imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
@@ -342,10 +342,10 @@ class Bitmap extends Image
       $x2 = $x + $quarter;
       $y2 = $y + $half;
       if ($fill !== FALSE) {
-        imagefilledrectangle($this->gd_image, $x1, $y1, $x2, $y2, $fill);
+        imagefilledrectangle($this->gd_image, (int) $x1, (int) $y1, (int) $x2, (int) $y2, $fill);
       }
       if ($stroke !== FALSE) {
-        imagerectangle($this->gd_image, $x1, $y1, $x2, $y2, $stroke);
+        imagerectangle($this->gd_image, (int) $x1, (int) $y1, (int) $x2, (int) $y2, $stroke);
       }
       imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
