@@ -328,7 +328,7 @@ class Bitmap extends Image
       if ($stroke !== FALSE) {
         imagerectangle($this->gd_image, $x1, $y1, $x2, $y2, $stroke);
       }
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
         $this->_create_area_element(
           'rect', array($x1, $y1, $x2, $y2), "$plaatsnaam ($kloeke_nr)", '', $kloeke_nr, $link_array
@@ -347,7 +347,7 @@ class Bitmap extends Image
       if ($stroke !== FALSE) {
         imagerectangle($this->gd_image, $x1, $y1, $x2, $y2, $stroke);
       }
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
         $this->_create_area_element(
           'rect', array($x1, $y1, $x2, $y2), "$plaatsnaam ($kloeke_nr)", '', $kloeke_nr, $link_array
@@ -355,7 +355,7 @@ class Bitmap extends Image
       }
       break;
     case 'line_horizontal':
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth * 2);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth * 2));
       $x1 = $x - $half;
       $y1 = $y - $quarter; // aanklikbaar gedeelte onzichtbaar groter
       $x2 = $x + $half;
@@ -366,7 +366,7 @@ class Bitmap extends Image
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
         imageline($this->gd_image, $x1, $y, $x2, $y, $this->_colors['grey']);
       }
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
         $this->_create_area_element(
           'rect', array($x1, $y1, $x2, $y2), "$plaatsnaam ($kloeke_nr)", '', $kloeke_nr, $link_array
@@ -374,7 +374,7 @@ class Bitmap extends Image
       }
       break;
     case 'line_vertical':
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth * 2);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth * 2));
       $x1 = $x - $quarter; // aanklikbaar gedeelte onzichtbaar groter
       $y1 = $y - $half;
       $x2 = $x + $quarter; // aanklikbaar gedeelte onzichtbaar groter
@@ -393,7 +393,7 @@ class Bitmap extends Image
       imagesetthickness($this->gd_image, $this->_bitmap_linewidth);
       break;
     case 'slash_left':
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth * 4);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth * 4));
       // aanklikbaar gedeelte onzichtbaar groter
       $x1 = $x - $half;
       $y1 = $y - $half;
@@ -413,7 +413,7 @@ class Bitmap extends Image
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
         imageline($this->gd_image, $x1, $y1, $x4, $y4, $this->_colors['grey']);
       }
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth);
+      imagesetthickness($this->gd_image,intval($this->_bitmap_linewidth));
       if ($area_element) {
         $this->_create_area_element(
           'poly', array($x1, $y1, $x2, $y2, $x3, $y3, $x4, $y4, $x5, $y5, $x6, $y6),
@@ -422,7 +422,7 @@ class Bitmap extends Image
       }
       break;
     case 'slash_right':
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth * 4);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth * 4));
       // aanklikbaar gedeelte onzichtbaar groter
       $x1 = $x - $half;
       $y1 = $y + $half;
@@ -442,7 +442,7 @@ class Bitmap extends Image
         // noodzakelijk om te emuleren wat er in de SVG-versie gebeurt bij 'color="none"' (1 pixel dik grijs streepje)
         imageline($this->gd_image, $x1, $y1, $x4, $y4, $this->_colors['grey']);
       }
-      imagesetthickness($this->gd_image, $this->_bitmap_linewidth);
+      imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth));
       if ($area_element) {
         $this->_create_area_element(
           'poly', array($x1, $y1, $x2, $y2, $x3, $y3, $x4, $y4, $x5, $y5, $x6, $y6),
@@ -790,7 +790,7 @@ class Bitmap extends Image
         $fill = $this->_allocated_color($highlighted[$path]['fill']);
         $color = $this->_allocated_color($highlighted[$path]['outline']);
         $thicknessfactor = $highlighted[$path]['strokewidth'];
-        imagesetthickness($this->gd_image, (int) $this->_bitmap_linewidth * $thicknessfactor);
+        imagesetthickness($this->gd_image, intval($this->_bitmap_linewidth * $thicknessfactor));
       }
       $highlightedpath = TRUE;
     } else {
