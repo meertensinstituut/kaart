@@ -944,7 +944,7 @@ class Bitmap extends Image
     $title_y = round($height / $this->_title_y_factor);
 
     imagefttext(
-      $this->gd_image, $title_fontsize, 0, $title_x, $title_y, $this->_colors['black'], KAART_BITMAP_TITLEFONT,
+      $this->gd_image, $title_fontsize, 0, (int) $title_x, (int) $title_y, $this->_colors['black'], KAART_BITMAP_TITLEFONT,
       $this->title
     );
   }
