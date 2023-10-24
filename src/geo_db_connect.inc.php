@@ -30,16 +30,16 @@
 /**
  * Name of the database with geographical data
  */
-define('KAART_GEO_DB', $_ENV['KAART_GEO_DB'] ?? 'geo');
+define('KAART_GEO_DB', isset($_ENV['KAART_GEO_DB']) ? $_ENV['KAART_GEO_DB'] : 'geo');
 /**
  * Name of the database with GIS data for historical municipalities (Boonstra)
  */
-define('KAART_NLGIS_DB', $_ENV['KAART_NLGIS_DB'] ?? 'nlgis');
+define('KAART_NLGIS_DB', isset($_ENV['KAART_NLGIS_DB']) ? $_ENV['KAART_NLGIS_DB'] : 'nlgis');
 
-define('KAART_GEO_DB_HOST', $_ENV['KAART_GEO_DB_HOST'] ?? 'localhost');
+define('KAART_GEO_DB_HOST', isset($_ENV['KAART_GEO_DB_HOST']) ? $_ENV['KAART_GEO_DB_HOST'] : 'localhost');
 /**
  * Make sure that this is a user who has SELECT privileges on KAART_GEO_DB and KAART_NLGIS_DB
  */
-define('KAART_GEO_DB_USER', $_ENV['KAART_GEO_DB_USER'] ?? 'dbuser');
-define('KAART_GEO_DB_PASSWORD', $_ENV['KAART_GEO_DB_PASSWORD'] ?? 'dbpass');
+define('KAART_GEO_DB_USER', isset($_ENV['KAART_GEO_DB_USER']) ? $_ENV['KAART_GEO_DB_USER'] : 'dbuser');
+define('KAART_GEO_DB_PASSWORD', isset($_ENV['KAART_GEO_DB_PASSWORD']) ? $_ENV['KAART_GEO_DB_PASSWORD'] : 'dbpass');
 
